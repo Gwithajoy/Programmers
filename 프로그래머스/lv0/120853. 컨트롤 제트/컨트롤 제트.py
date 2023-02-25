@@ -6,7 +6,5 @@ def solution(s):
             answer += int(lst[i])
         else:
             lst[i] = int(lst[i-1]) * -1
-            print(sum)
-            print(lst[i])
             answer+= int(lst[i])
     return answer
