@@ -1,13 +1,18 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String input = sc.next();
-        
-        for (char ch = 'a'; ch <= 'z'; ch++) {
-            int count = input.length() - input.replace(String.valueOf(ch), "").length();
-            System.out.print(count+" ");
+        String S = sc.next();
+
+        int[] chkLine = new int[26];
+
+        for (char c : S.toCharArray()) {
+            chkLine[c - 'a']++;
+        }
+
+        for (int num : chkLine) {
+            System.out.print(num + " ");
         }
     }
 }
