@@ -1,19 +1,11 @@
-import java.util.*;
+import java.util.Arrays;
 
 class Solution {
     public int[] solution(int[] arr) {
-        List<Integer> answer = new ArrayList<>();
-        
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] >= 50 && arr[i] % 2 == 0) {
-                answer.add(arr[i] / 2);
-            } else if (arr[i] < 50 && arr[i] % 2 != 0){
-            
-                answer.add(arr[i] * 2);
-            } else {
-                answer.add(arr[i]);
-            }
-        }
-        return answer.stream().mapToInt(i -> i).toArray();
+        return Arrays.stream(arr)
+                    .map(n -> (n >= 50 && n % 2 == 0) ? n / 2 
+                         : (n < 50 && n % 2 != 0) ? n * 2 
+                         : n)
+                    .toArray();    
     }
 }
