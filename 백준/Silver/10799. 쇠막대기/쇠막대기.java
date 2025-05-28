@@ -1,29 +1,29 @@
 import java.util.*;
-
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String line = sc.nextLine();
-
-        Stack<Character> stk = new Stack<>();
-        int result = 0;
-
-        for (int i = 0; i < line.length(); i++) {
-            char curr = line.charAt(i);
-
-            if (curr == '(') {
-                stk.push('(');
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));        
+        String input = br.readLine().trim();
+        
+        Deque<Character> stack = new ArrayDeque<>();
+        int answer = 0;
+        
+        for (int i = 0; i < input.length(); i++) {
+            char cur = input.charAt(i);
+            
+            if (cur == '(') {
+                stack.push(cur);
             } else {
-                stk.pop();
-
-                if (line.charAt(i - 1) == '(') {
-                    result += stk.size();
+                if (i > 0 && input.charAt(i - 1) == '(') {
+                    stack.pop();
+                    answer += stack.size();
                 } else {
-                    result += 1;
+                    stack.pop();
+                    answer += 1;
                 }
             }
         }
-        System.out.println(result);
+        System.out.println(answer);
     }
 }
