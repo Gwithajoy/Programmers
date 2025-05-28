@@ -1,21 +1,25 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        Deque<Integer> st = new ArrayDeque<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        int curr = 1;
-
-        for (int i = 0; i < n; i++) {
-            int x = sc.nextInt();
-            while (curr <= x) {
-                st.push(curr++);
+        Deque<Integer> stack = new ArrayDeque<>();
+        
+        int N = Integer.parseInt(br.readLine());
+        int next = 1;
+        
+        for (int i = 0; i < N; i++) {
+            int target = Integer.parseInt(br.readLine());
+            
+            while (next <= target) {
+                stack.push(next++);
                 sb.append("+\n");
             }
-            if (st.peek() == x) {
-                st.pop();
+            
+            if (!stack.isEmpty() && stack.peek() == target) {
+                stack.pop();
                 sb.append("-\n");
             } else {
                 System.out.println("NO");
@@ -23,5 +27,6 @@ public class Main {
             }
         }
         System.out.print(sb);
-    }
+        
+   }
 }
