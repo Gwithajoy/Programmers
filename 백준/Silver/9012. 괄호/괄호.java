@@ -1,32 +1,36 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt();
-        sc.nextLine();
-        
-        for (int i = 0; i < num; i++) {
-            String line = sc.nextLine().trim();
-            System.out.println(yesOrNo(line) ? "YES" : "NO");
-        }
-        sc.close();
-    }
-    
-    public static boolean yesOrNo(String s){
-        Stack<Character> stk = new Stack<>();
-        
-        for (char c : s.toCharArray()) {
-            if (c == '(') {
-                stk.push(c);
-            } else if(c == ')') {
-                if (stk.isEmpty()) {
-                    return false;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
+
+        StringBuilder sb = new StringBuilder();
+        while (T-- > 0) {
+            String line = br.readLine().trim();
+            Deque<Character> stack = new ArrayDeque<>();
+            boolean valid = true;
+
+            for (char ch : line.toCharArray()) {
+                if (ch == '(') {
+                    stack.push(ch);
+                } else {  // ')'
+                    if (stack.isEmpty()) {
+                        valid = false;
+                        break;
+                    }
+                    stack.pop();
                 }
-                stk.pop();
+            }
+
+            if (valid && stack.isEmpty()) {
+                sb.append("YES\n");
+            } else {
+                sb.append("NO\n");
             }
         }
-        
-        return stk.isEmpty();
+
+        System.out.print(sb);
     }
 }
