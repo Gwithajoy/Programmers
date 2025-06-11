@@ -1,41 +1,42 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine());
-        StringBuilder output = new StringBuilder();
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        sc.nextLine(); // 개행 문자 제거
 
-        while (T-- > 0) {
-            String input = br.readLine();
+        for (int i = 0; i < N; i++) {
+            String input = sc.nextLine();
+
             LinkedList<Character> list = new LinkedList<>();
-            ListIterator<Character> iterator = list.listIterator();
+            ListIterator<Character> iter = list.listIterator();
 
-            for (char ch : input.toCharArray()) {
-                if (ch == '<') {
-                    if (iterator.hasPrevious()) {
-                        iterator.previous();
+            for (char c : input.toCharArray()) {
+                if (c == '-') {
+                    if (iter.hasPrevious()) {
+                        iter.previous();
+                        iter.remove();
                     }
-                } else if (ch == '>') {
-                    if (iterator.hasNext()) {
-                        iterator.next();
+                } else if (c == '<') {
+                    if (iter.hasPrevious()) {
+                        iter.previous();
                     }
-                } else if (ch == '-') {
-                    if (iterator.hasPrevious()) {
-                        iterator.previous();
-                        iterator.remove();
+                } else if (c == '>') {
+                    if (iter.hasNext()) {
+                        iter.next();
                     }
                 } else {
-                    iterator.add(ch);
+                    iter.add(c);
                 }
             }
 
-            for (char c : list) {
-                output.append(c);
+            StringBuilder sb = new StringBuilder();
+            for (char ch : list) {
+                sb.append(ch);
             }
-            output.append("\n");
+            System.out.println(sb.toString());
         }
-        System.out.print(output);
     }
 }
