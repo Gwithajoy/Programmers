@@ -2,8 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    
-    static class Doc {
+     static class Doc {
         int idx, prio;
         Doc(int idx, int prio) {
             this.idx = idx;
@@ -34,7 +33,6 @@ public class Main {
             int printed = 0;
             while (true) {
                 Doc cur = q.poll();
-                
                 if (cur.prio < pq.peek()) {
                     q.offer(cur);
                 } else {
@@ -45,7 +43,7 @@ public class Main {
                         break;
                     }
                 }
-            }    
+            }
         }
         System.out.print(sb);
     }
