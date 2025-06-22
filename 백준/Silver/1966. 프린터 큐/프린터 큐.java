@@ -1,37 +1,52 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
+    
+    static class Doc {
+        int idx, prio;
+        Doc(int idx, int prio) {
+            this.idx = idx;
+            this.prio = prio;
+        }
+    }
+    
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        
+        int T = Integer.parseInt(br.readLine());
         while (T-- > 0) {
-            int N = sc.nextInt();
-            int M = sc.nextInt();
-            LinkedList<int[]> queue = new LinkedList<>();
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int N = Integer.parseInt(st.nextToken());
+            int M = Integer.parseInt(st.nextToken());
+            
+            Deque<Doc> q = new ArrayDeque<>();
+            PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+            
+            st = new StringTokenizer(br.readLine());
             for (int i = 0; i < N; i++) {
-                queue.add(new int[]{i, sc.nextInt()});
+                int imp = Integer.parseInt(st.nextToken());
+                q.offer(new Doc(i, imp));
+                pq.offer(imp);
             }
+            
             int printed = 0;
             while (true) {
-                int[] cur = queue.removeFirst();
-                boolean higher = false;
-                for (int[] q : queue) {
-                    if (q[1] > cur[1]) {
-                        higher = true;
-                        break;
-                    }
-                }
-                if (higher) {
-                    queue.addLast(cur);
+                Doc cur = q.poll();
+                
+                if (cur.prio < pq.peek()) {
+                    q.offer(cur);
                 } else {
                     printed++;
-                    if (cur[0] == M) {
-                        System.out.println(printed);
+                    pq.poll();
+                    if (cur.idx == M) {
+                        sb.append(printed).append('\n');
                         break;
                     }
                 }
-            }
+            }    
         }
-        sc.close();
+        System.out.print(sb);
     }
 }
