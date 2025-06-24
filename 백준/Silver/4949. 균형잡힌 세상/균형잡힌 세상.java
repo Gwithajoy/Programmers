@@ -2,39 +2,33 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main (String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        
         String line;
-        
         while (!(line = br.readLine()).equals(".")) {
-            if (isBalanced(line)) {
-                System.out.println("yes");
-            } else {
-                System.out.println("no");
-            }
-        }
-    }
-    
-    public static boolean isBalanced(String s) {
-        Stack<Character> stk = new Stack<>();
-        
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+            Stack<Character> stack = new Stack<>();
+            boolean balanced = true;
             
-            if ( c == '(' || c == '[') {
-                stk.push(c);
-            } else if (c == ')') {
-                if (stk.isEmpty() || stk.peek() != '('){
-                    return false;
+            for (char c : line.toCharArray()) {
+                if (c == '(' || c == '[') {
+                    stack.push(c);
+                } else if (c == ')') {
+                    if (stack.isEmpty() || stack.pop() != '(') {
+                        balanced = false;
+                        break;
+                    }
+                } else if (c == ']') {
+                    if (stack.isEmpty() || stack.pop() != '[') {
+                        balanced = false;
+                        break;
+                    }
                 }
-                stk.pop();
-            } else if (c == ']') {
-                if (stk.isEmpty() || stk.peek() != '[') {
-                    return false;
-                }
-                stk.pop();
             }
+            if (!stack.isEmpty()) balanced = false;
+            sb.append(balanced ? "yes\n" : "no\n");
         }
-        return stk.isEmpty();
+        System.out.print(sb);
     }
 }
