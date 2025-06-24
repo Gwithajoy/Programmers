@@ -2,41 +2,41 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        sc.nextLine(); // 개행 문자 제거
-
-        for (int i = 0; i < N; i++) {
-            String input = sc.nextLine();
-
-            LinkedList<Character> list = new LinkedList<>();
-            ListIterator<Character> iter = list.listIterator();
-
-            for (char c : input.toCharArray()) {
-                if (c == '-') {
-                    if (iter.hasPrevious()) {
-                        iter.previous();
-                        iter.remove();
-                    }
-                } else if (c == '<') {
-                    if (iter.hasPrevious()) {
-                        iter.previous();
-                    }
-                } else if (c == '>') {
-                    if (iter.hasNext()) {
-                        iter.next();
-                    }
-                } else {
-                    iter.add(c);
+    public static void main (String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        int N = Integer.parseInt(br.readLine());
+                
+        while (N-- > 0) {
+            char[] keys = br.readLine().toCharArray();
+            Deque<Character> left = new ArrayDeque<>();
+            Deque<Character> right = new ArrayDeque<>();
+            
+            for (char k : keys) {
+                switch (k) {
+                    case '<':
+                        if (!left.isEmpty()) right.push(left.pop());
+                        break;
+                    case '>':
+                        if (!right.isEmpty()) left.push(right.pop());
+                        break;
+                    case '-':
+                        if (!left.isEmpty()) left.pop();
+                        break;
+                    default :
+                        left.push(k);
+                        break;
                 }
             }
-
-            StringBuilder sb = new StringBuilder();
-            for (char ch : list) {
-                sb.append(ch);
+            Iterator<Character> it = left.descendingIterator();
+            while (it.hasNext()) {
+                sb.append(it.next());
             }
-            System.out.println(sb.toString());
+            while (!right.isEmpty()) {
+                sb.append(right.pop());
+            }
+            sb.append('\n');     
         }
+        System.out.print(sb);
     }
 }
