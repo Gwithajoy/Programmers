@@ -4,30 +4,32 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int num = Integer.parseInt(br.readLine());
-        int[] A = new int[num];
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        StringBuilder sb = new StringBuilder();
         
-        for (int i = 0; i < num; i++) {
-            A[i] = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(br.readLine());
+        String[] tokens = br.readLine().split(" ");
+        int[] A = new int[N];
+        
+        for (int i = 0; i < N; i++) {
+            A[i] = Integer.parseInt(tokens[i]);
         }
         
-        int[] nge = new int[num];
+        int[] nge = new int[N];
+        Arrays.fill(nge, -1);
+        
         Deque<Integer> stack = new ArrayDeque<>();
-        for (int i  = 0; i < num; i++) {
-            while (!stack.isEmpty() && A[stack.peek()] < A[i]) {
-                nge[stack.pop()] = A[i];            
+        
+        for (int i = 0; i < N; i++) {
+            while(!stack.isEmpty() && A[stack.peek()] < A[i]) {
+                int idx = stack.pop();
+                nge[idx] = A[i];
             }
             stack.push(i);
         }
-        while (!stack.isEmpty()) {
-            nge[stack.pop()] = -1;
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        for (int x : nge) {
-            sb.append(x).append(' ');
-        }
-        System.out.println(sb);
+        for (int i = 0; i < N; i++) {
+            sb.append(nge[i]);
+            if (i < N - 1) sb.append(' ');
+        }  
+        System.out.print(sb);
     }
 }
