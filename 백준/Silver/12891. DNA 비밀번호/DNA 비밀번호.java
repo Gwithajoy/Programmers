@@ -1,5 +1,5 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
     static int[] curr = new int[4];
@@ -20,20 +20,18 @@ public class Main {
         }
         
         for (int i = 0; i < P; i++) {
-            add(dna.charAt(i));
+           add(dna.charAt(i));
         }
         
-        int answer = (validCount == 4) ? 1: 0;
+        int answer = (validCount == 4) ? 1 : 0;
         
         for (int i = P; i < S; i++) {
             add (dna.charAt(i));
-            remove (dna.charAt(i - P));
-            
-            if (validCount == 4) answer++;
+            remove(dna.charAt(i - P));
+            if  (validCount == 4) answer++; 
         }
         System.out.println(answer);
-   }
-    
+    }
     private static void add(char c) {
         int idx = map(c);
         curr[idx]++;
@@ -50,14 +48,14 @@ public class Main {
         curr[idx]--;
     }
     
-    
     private static int map(char c) {
-        switch (c) {
-            case 'A': return 0;
-            case 'C': return 1;
-            case 'G': return 2;
-            case 'T': return 3;
-            default:  return -1;
+            switch(c) {
+                case 'A': return 0;
+                case 'C': return 1;
+                case 'G': return 2;
+                case 'T': return 3;
+                default: return -1;
+            
         }
     }
 }
