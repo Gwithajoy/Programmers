@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException { 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         int N = Integer.parseInt(st.nextToken());
@@ -11,7 +11,7 @@ public class Main {
         int[] A = new int[N + 1];
         st = new StringTokenizer(br.readLine(), " ");
         for (int i = 1; i <= N; i++) {
-            A[i] = Integer.parseInt(st.nextToken());
+            A[i] = Integer.parseInt(st.nextToken()); 
         }
         
         long count = 0;
@@ -20,7 +20,7 @@ public class Main {
         
         if (N > 0) sum = A[1];
         
-        while(i <= N && j <= N) {
+        while (i <= N && j <= N) {
             if (sum < M) {
                 j++;
                 if (j <= N) sum += A[j];
