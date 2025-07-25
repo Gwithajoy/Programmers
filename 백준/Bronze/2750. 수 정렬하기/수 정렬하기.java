@@ -1,20 +1,19 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         
-        int[] numArr = new int[n];
-        
-        for (int i = 0; i < n; i++) {
-            numArr[i] = sc.nextInt();
+        int[] A = new int[N];
+        for (int i = 0; i < N; i++) {
+            A[i] = Integer.parseInt(br.readLine());
         }
         
-        Arrays.sort(numArr);
-
-        for (int num : numArr) {
-            System.out.println(num);
+        Arrays.sort(A);
+        for (int k : A) {
+            System.out.println(k);
         }
     }
 }
