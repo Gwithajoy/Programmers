@@ -4,21 +4,21 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        int N = Integer.parseInt(br.readLine().trim());
+        int N = Integer.parseInt(br.readLine());
         
-        Set<String> set = new HashSet<>();
-        PriorityQueue<String>  minHeap = new PriorityQueue<>(
-            Comparator
-            .comparingInt(String::length)
-            .thenComparing(Comparator.naturalOrder())
+        Set<String> sorted = new TreeSet<>(
+            Comparator.comparingInt(String::length)
+                      .thenComparing(Comparator.naturalOrder())    
         );
-        while (N-- > 0) {
-            set.add(br.readLine().trim());
+        
+        for (int i = 0; i < N; i++) {
+            sorted.add(br.readLine().trim());
         }
-        minHeap.addAll(set);
-        while(!minHeap.isEmpty()) {
-            System.out.println(minHeap.poll());
+        
+        StringBuilder sb = new StringBuilder();
+        for (String w : sorted) {
+            sb.append(w).append('\n');
         }
+        System.out.print(sb);
     }
 }
