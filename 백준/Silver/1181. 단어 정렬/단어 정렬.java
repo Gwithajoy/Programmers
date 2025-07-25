@@ -8,10 +8,10 @@ public class Main {
         
         Set<String> sorted = new TreeSet<>(
             Comparator.comparingInt(String::length)
-                      .thenComparing(Comparator.naturalOrder())    
+                      .thenComparing(Comparator.naturalOrder())
         );
         
-        for (int i = 0; i < N; i++) {
+        for (int i = 0;  i < N; i++) {
             sorted.add(br.readLine().trim());
         }
         
