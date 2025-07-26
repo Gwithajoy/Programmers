@@ -12,8 +12,9 @@ public class Main {
         }
         
         Arrays.sort(A);
-        for (int k : A) {
-            System.out.println(k);
+        
+        for (int n : A) {
+            System.out.println(n);
         }
     }
 }
