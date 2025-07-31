@@ -1,23 +1,42 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[][] m = new int[N][2];
-        for (int i = 0; i < N; i++) {
-            m[i][0] = sc.nextInt();
-            m[i][1] = sc.nextInt();
+    static class Meeting implements Comparable<Meeting> {
+        int start, end;
+        Meeting(int s, int e) { start = s; end = e; }
+        @Override
+        public int compareTo(Meeting o) {
+            if (this.end != o.end) 
+                return Integer.compare(this.end, o.end);
+            return Integer.compare(this.start, o.start);
         }
-        sc.close();
-        Arrays.sort(m, (a, b) -> a[1] != b[1] ? a[1] - b[1] : a[0] - b[0]);
-        int cnt = 0, end = 0;
-        for (int[] x : m) {
-            if (x[0] >= end) {
-                end = x[1];
-                cnt++;
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine().trim());
+
+        Meeting[] meetings = new Meeting[N];
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            meetings[i] = new Meeting(
+                Integer.parseInt(st.nextToken()),
+                Integer.parseInt(st.nextToken())
+            );
+        }
+
+        Arrays.sort(meetings);
+
+        int count = 0;
+        int lastEnd = -1;  
+        for (Meeting m : meetings) {
+            if (m.start >= lastEnd) {
+                count++;
+                lastEnd = m.end;
             }
         }
-        System.out.println(cnt);
+
+        System.out.println(count);
     }
 }
