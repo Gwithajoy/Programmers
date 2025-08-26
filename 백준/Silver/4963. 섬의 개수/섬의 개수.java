@@ -8,11 +8,11 @@ public class Main {
     static int[] dx = {-1, 1, 0, 0, -1, -1, 1, 1};
     static int[] dy = {0, 0, -1, 1, -1, 1, -1, 1};
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
+
         while (true) {
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            StringTokenizer st = new StringTokenizer(br.readLine());
             w = Integer.parseInt(st.nextToken());
             h = Integer.parseInt(st.nextToken());
             
@@ -29,30 +29,27 @@ public class Main {
                     map[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
-            int islandCount = 0;
-            
+            int count = 0;
             for (int i = 0; i < h; i++) {
                 for (int j = 0; j < w; j++) {
                     if (map[i][j] == 1 && !visited[i][j]) {
                         dfs(i, j);
-                        islandCount++;
+                        count++;
                     }
                 }
-            } 
-            System.out.println(islandCount);
+            }
+            System.out.println(count);
         }
     }
-        public static void dfs(int x, int y) {
+    static void dfs(int x, int y) {
         visited[x][y] = true;
-        
         for (int i = 0; i < 8; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
             
-            if (nx >= 0 && nx < h && ny >= 0 && ny < w && !visited[nx][ny] && map[nx][ny] == 1) {
-                dfs(nx, ny);        
+            if (nx >= 0 && nx < h && ny >= 0 && ny < w && !visited[nx][ny]  && map[nx][ny] == 1) {
+                dfs(nx, ny);
             }
         }
     }
-    
 }
