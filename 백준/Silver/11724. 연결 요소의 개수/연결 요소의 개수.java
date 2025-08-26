@@ -5,7 +5,6 @@ public class Main {
     static int N, M;
     static boolean[] visited;
     static List<Integer>[] adj;
-    static int count;
     
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,7 +12,7 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         
-        adj = new ArrayList[N + 1];
+        adj = new ArrayList[N+1];
         for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<>();
         }
@@ -27,15 +26,16 @@ public class Main {
         }
         
         visited = new boolean[N+1];
-        count = 0;
+        int count = 0;
         for (int i = 1; i <= N; i++) {
             if (!visited[i]) {
                 dfs(i);
                 count++;
             }
         }
-        System.out.println(count);
+        System.out.print(count);
     }
+    
     static void dfs(int u) {
         visited[u] = true;
         for (int v : adj[u]) {
