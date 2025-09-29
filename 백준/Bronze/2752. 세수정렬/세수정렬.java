@@ -13,6 +13,8 @@ public class Main {
         
         Arrays.sort(arr);
         
-        System.out.println(arr[0] + " " + arr[1] + " " + arr[2]);
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
     }
 }
