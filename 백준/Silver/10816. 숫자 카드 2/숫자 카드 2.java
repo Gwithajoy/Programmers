@@ -1,28 +1,30 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-public class Main {
+public class Main{
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
         StringBuilder sb = new StringBuilder();
-
-        int N = Integer.parseInt(br.readLine().trim());
-        st = new StringTokenizer(br.readLine(), " ");
-        Map<Integer, Integer> countMap = new HashMap<>(N);
+        
+        int N = Integer.parseInt(br.readLine());
+        Map<Integer, Integer> map = new HashMap<>();
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            int x = Integer.parseInt(st.nextToken());
-            countMap.put(x, countMap.getOrDefault(x, 0) + 1);
+            int num = Integer.parseInt(st.nextToken());
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
-        int M = Integer.parseInt(br.readLine().trim());
-        st = new StringTokenizer(br.readLine(), " ");
+        
+        int M = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
         for (int i = 0; i < M; i++) {
-            int q = Integer.parseInt(st.nextToken());
-            int cnt = countMap.getOrDefault(q, 0);
-            sb.append(cnt).append(' ');
+            int num2 = Integer.parseInt(st.nextToken());
+            if (map.containsKey(num2)) {
+                sb.append(map.get(num2)).append(" ");
+            } else {
+                sb.append(0).append(" ");
+            }
         }
-
-        System.out.println(sb.toString().trim());
+        System.out.println(sb);
+        
     }
 }
