@@ -1,67 +1,62 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
     static int N;
-    static int[][] map;
+    static int[][] h;
     static boolean[][] visited;
-    static int[] dx = {-1, 1, 0, 0};
+    static int[] dx = {1, -1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
-
-    public static void main(String[] args) throws IOException {
+    
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        map = new int[N][N];
-        int maxHeight = 0;
-
+        
+        h = new int[N][N];
+        int maxH = 0;
         for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
-                map[i][j] = Integer.parseInt(st.nextToken());
-                maxHeight = Math.max(maxHeight, map[i][j]);
+                h[i][j] = Integer.parseInt(st.nextToken());
+                if (h[i][j] > maxH) maxH = h[i][j];
             }
         }
-
-        int result = 0;
-
-        for (int rain = 0; rain <= maxHeight; rain++) {
+        
+        int answer = 1;
+        for (int rain = 0; rain < maxH; rain++) {
             visited = new boolean[N][N];
-            int safeArea = 0;
-
+            int cnt = 0;
+            
             for (int i = 0; i < N; i++) {
                 for (int j = 0; j < N; j++) {
-                    if (!visited[i][j] && map[i][j] > rain) {
+                    if (!visited[i][j] && h[i][j] > rain ) {
                         bfs(i, j, rain);
-                        safeArea++;
-                    }
+                        cnt++;
+                    } 
                 }
             }
-
-            result = Math.max(result, safeArea);
+            answer = Math.max(answer, cnt);
         }
-
-        System.out.println(result);
+        System.out.println(answer);
     }
-
     static void bfs(int x, int y, int rain) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{x, y});
+        ArrayDeque<int[]> q = new ArrayDeque<>();
         visited[x][y] = true;
-
-        while (!queue.isEmpty()) {
-            int[] curr = queue.poll();
-            int cx = curr[0], cy = curr[1];
-
-            for (int d = 0; d < 4; d++) {
-                int nx = cx + dx[d];
-                int ny = cy + dy[d];
-
-                if (nx >= 0 && ny >= 0 && nx < N && ny < N) {
-                    if (!visited[nx][ny] && map[nx][ny] > rain) {
-                        visited[nx][ny] = true;
-                        queue.offer(new int[]{nx, ny});
-                    }
-                }
+        q.add(new int[]{x, y});
+        
+        while(!q.isEmpty()) {
+            int[] cur = q.poll();
+            int cx = cur[0];
+            int cy = cur[1];
+            
+            for (int i = 0; i < 4; i++) {
+                int nx = cx + dx[i];
+                int ny = cy + dy[i];
+                
+                if (nx >= 0  && nx < N && ny >= 0 && ny < N && !visited[nx][ny] && h[nx][ny] > rain) {
+                    visited[nx][ny] = true;
+                    q.add(new int[]{nx, ny});
+                }  
             }
         }
     }
