@@ -1,20 +1,20 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        Deque<Integer> stack = new ArrayDeque<>();
-        
         int N = Integer.parseInt(br.readLine());
-        int next = 1;
+        
+        Deque<Integer> stack = new ArrayDeque<>();
+        int num = 1;
         
         for (int i = 0; i < N; i++) {
             int target = Integer.parseInt(br.readLine());
             
-            while (next <= target) {
-                stack.push(next++);
+            while (num <= target) {
+                stack.push(num++);
                 sb.append("+\n");
             }
             
@@ -27,6 +27,5 @@ public class Main {
             }
         }
         System.out.print(sb);
-        
-   }
+    }
 }
